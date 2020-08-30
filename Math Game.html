@@ -1,0 +1,120 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Math Game</title>
+    <link rel="stylesheet" type="text/css" href="styling.css">
+</head>
+<body>
+    <div id="container">
+        <div id="score">Score: <span id="scorevalue">0</span></div>
+        <div id="correct">Correct</div>
+        <div id="wrong">Try Again</div>
+        <div id="question"></div>
+        <div id="instruction">Click on the correct answer</div>
+        <div id="choices">
+            <div id="box1" class="box"></div>
+            <div id="box2" class="box"></div>
+            <div id="box3" class="box"></div>
+            <div id="box4" class="box"></div>
+        </div>
+        <div id="startreset">Start Game</div>
+        <div id="timeremaining">
+            Time remaining: <span id="time">60</span> sec
+        </div>
+        <div id="gameover"><p>Game Over!</p><p>Your score is: <span id="stats">0</span> </p></div>
+    </div>
+    <script>
+ document.getElementById('startreset').onclick=function(){
+     var stat=0;
+     var gamestate= document.getElementById('startreset').innerHTML;
+     if(gamestate=='Reset Game'){
+         location.reload();
+     }
+     if(gamestate=='Start Game'){
+document.getElementById('startreset').innerHTML="Reset Game";
+document.getElementById('scorevalue').innerHTML=stat;
+    var n1=Math.floor(Math.random()*10);
+    var n2=Math.floor(Math.random()*10);
+    var optarr=[0,0,0,0];
+document.getElementById('question').innerHTML=n1+" x "+n2;
+    var b=Math.ceil(Math.random()*4);
+document.getElementById('box'+b).innerHTML=n1*n2;
+    optarr[b-1]=n1*n2;
+for(i=1;i<5;i++){
+    if(i!=b){
+    var och=Math.floor(Math.random()*81);
+    if(och!=n1*n2){
+document.getElementById('box'+i).innerHTML=och;
+        optarr[i-1]=och;
+    }
+     else{
+document.getElementById('box'+i).innerHTML=++och;
+         optarr[i-1]=och;
+     }
+    }
+}
+         var ind;
+function checkans(ind){
+    if(optarr[ind]==n1*n2){
+document.getElementById('correct').style.display='block';
+document.getElementById('wrong').style.display='none';
+document.getElementById('scorevalue').innerHTML=++stat;
+    n1=Math.floor(Math.random()*10);
+    n2=Math.floor(Math.random()*10);
+document.getElementById('question').innerHTML=n1+" * "+n2;
+    var b2=Math.ceil(Math.random()*4);
+document.getElementById('box'+b2).innerHTML=n1*n2;
+        optarr[b2-1]=n1*n2;
+for(i=1;i<5;i++){
+    if(i!=b2){
+    var och2=Math.floor(Math.random()*81);
+    if(och2!=n1*n2){
+document.getElementById('box'+i).innerHTML=och2;
+       optarr[i-1]=och2;
+    }
+     else{
+document.getElementById('box'+i).innerHTML=++och2; 
+         optarr[i-1]=och2;
+   }
+}
+}
+}
+    else{
+document.getElementById('wrong').style.display='block';
+document.getElementById('correct').style.display='none';
+}
+}
+document.getElementById('box1').onclick=
+    function(){
+    checkans(0);
+}
+document.getElementById('box2').onclick=
+    function(){
+    checkans(1);
+}
+document.getElementById('box3').onclick=
+    function(){
+    checkans(2);
+}
+document.getElementById('box4').onclick=
+    function(){
+    checkans(3);
+}
+document.getElementById('timeremaining').style.display='block';
+         var x=60;
+         var counter=setInterval(function(){x--; document.getElementById('time').innerHTML=x;
+         if(x==0){
+        clearInterval(counter);
+document.getElementById('box1').onclick=function(){};
+document.getElementById('box2').onclick=function(){};
+document.getElementById('box3').onclick=function(){};
+document.getElementById('box4').onclick=function(){};
+document.getElementById('gameover').style.display='block';  
+document.getElementById('stats').innerHTML=stat;
+         }},1000);       
+     }
+     }
+    </script>
+</body>
+</html>
